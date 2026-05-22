@@ -181,3 +181,115 @@ a {
   animation: skeleton-loading 1.5s infinite ease-in-out;
   border-radius: 8px;
 }
+
+/* Markdown Editor Styling */
+.w-md-editor {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e7e7ee !important;
+}
+
+.w-md-editor-toolbar {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.w-md-editor-toolbar button {
+  color: #d4d4dc !important;
+  transition: all 0.2s ease;
+}
+
+.w-md-editor-toolbar button:hover {
+  color: #ff8a3d !important;
+  background-color: rgba(255, 138, 61, 0.1) !important;
+}
+
+.w-md-editor-toolbar button.active {
+  background-color: rgba(255, 138, 61, 0.2) !important;
+  color: #ffa84d !important;
+}
+
+.w-md-editor-input {
+  color: #e7e7ee !important;
+  caret-color: #ff8a3d !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+}
+
+.w-md-editor-input::placeholder {
+  color: #8b8b96 !important;
+}
+
+.w-md-editor-preview {
+  background-color: transparent !important;
+  color: #d4d4dc !important;
+}
+
+.w-md-editor-preview h1,
+.w-md-editor-preview h2,
+.w-md-editor-preview h3,
+.w-md-editor-preview h4,
+.w-md-editor-preview h5,
+.w-md-editor-preview h6 {
+  color: #fff !important;
+  margin-top: 1.2em !important;
+  margin-bottom: 0.6em !important;
+}
+
+.w-md-editor-preview h1 {
+  font-size: 1.8em !important;
+}
+
+.w-md-editor-preview h2 {
+  font-size: 1.5em !important;
+}
+
+.w-md-editor-preview strong {
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+
+.w-md-editor-preview a {
+  color: #ff8a3d !important;
+  text-decoration: underline !important;
+}
+
+.w-md-editor-preview a:hover {
+  color: #ffa84d !important;
+}
+
+.w-md-editor-preview code {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffb366 !important;
+  border-radius: 4px !important;
+}
+
+.w-md-editor-preview pre {
+  background-color: #0d0d15 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.w-md-editor-preview pre code {
+  color: #d4d4dc !important;
+}
+
+.w-md-editor-preview blockquote {
+  border-left-color: #ff3d6e !important;
+  color: #c9c9d6 !important;
+}
+
+.w-md-editor-preview ul,
+.w-md-editor-preview ol {
+  padding-left: 1.5em !important;
+}
+
+.w-md-editor-preview li {
+  margin: 0.35em 0 !important;
+}
+
+.w-md-editor-text-input {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.w-md-editor-text-preview {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}

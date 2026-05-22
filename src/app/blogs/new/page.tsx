@@ -18,7 +18,25 @@ export default function NewBlogPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [cursorPos, setCursorPos] = useState(0);
   const html = useMemo(() => renderMarkdown(content), [content]);
+
+  const insertMarkdown = (before: string, after: string = "") => {
+    const textarea = document.querySelector("textarea") as HTMLTextAreaElement;
+    if (!textarea) return;
+    
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = content.substring(start, end) || "text";
+    const newText = content.substring(0, start) + before + selectedText + after + content.substring(end);
+    
+    setContent(newText);
+    setTimeout(() => {
+      textarea.selectionStart = start + before.length;
+      textarea.selectionEnd = start + before.length + selectedText.length;
+      textarea.focus();
+    }, 0);
+  };
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -109,14 +127,32 @@ export default function NewBlogPage() {
             </div>
           </div>
           {tab === "write" ? (
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder={`# Hello world\n\nWrite your post in **Markdown**…\n\n- bullet\n- list\n\n\`\`\`js\nconsole.log("hi")\n\`\`\``}
-              rows={18}
-              className="block w-full rounded-lg bg-black/40 border border-white/10 px-3 py-2 text-sm font-mono leading-relaxed focus:outline-none focus:border-orange-500"
-              required
-            />
+            <>
+              <div className="mb-3 p-3 bg-black/40 border border-white/10 rounded-t-lg flex flex-wrap gap-1">
+                <button type="button" onClick={() => insertMarkdown("# ")} title="Heading 1" className="px-2 py-1 text-xs bg-white/10 hover:bg-white/20 rounded transition-colors">H1</button>
+                <button type="button" onClick={() => insertMarkdown("## ")} title="Heading 2" className="px-2 py-1 text-xs bg-white/10 hover:bg-white/20 rounded transition-colors">H2</button>
+                <button type="button" onClick={() => insertMarkdown("### ")} title="Heading 3" className="px-2 py-1 text-xs bg-white/10 hover:bg-white/20 rounded transition-colors">H3</button>
+                <div className="border-l border-white/10 mx-1"></div>
+                <button type="button" onClick={() => insertMarkdown("**", "**")} title="Bold" className="px-2 py-1 text-xs bg-white/10 hover:bg-white/20 rounded transition-colors font-bold">B</button>
+                <button type="button" onClick={() => insertMarkdown("*", "*")} title="Italic" className="px-2 py-1 text-xs bg-white/10 hover:bg-white/20 rounded transition-colors italic">I</button>
+                <button type="button" onClick={() => insertMarkdown("`", "`")} title="Code" className="px-2 py-1 text-xs bg-white/10 hover:bg-white/20 rounded transition-colors font-mono">C</button>
+                <div className="border-l border-white/10 mx-1"></div>
+                <button type="button" onClick={() => insertMarkdown("- ")} title="Bullet list" className="px-2 py-1 text-xs bg-white/10 hover:bg-white/20 rounded transition-colors">• List</button>
+                <button type="button" onClick={() => insertMarkdown("1. ")} title="Numbered list" className="px-2 py-1 text-xs bg-white/10 hover:bg-white/20 rounded transition-colors">1.</button>
+                <button type="button" onClick={() => insertMarkdown("> ")} title="Quote" className="px-2 py-1 text-xs bg-white/10 hover:bg-white/20 rounded transition-colors">"</button>
+                <div className="border-l border-white/10 mx-1"></div>
+                <button type="button" onClick={() => insertMarkdown("[", "](url)")} title="Link" className="px-2 py-1 text-xs bg-white/10 hover:bg-white/20 rounded transition-colors">Link</button>
+                <button type="button" onClick={() => insertMarkdown("![alt](", ")")} title="Image" className="px-2 py-1 text-xs bg-white/10 hover:bg-white/20 rounded transition-colors">Img</button>
+              </div>
+              <textarea
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                placeholder={`# Hello world\n\nWrite your post in **Markdown**…\n\n- bullet\n- list\n\n\`\`\`js\nconsole.log("hi")\n\`\`\``}
+                rows={18}
+                className="block w-full bg-black/40 border border-white/10 rounded-b-lg px-3 py-2 text-sm font-mono leading-relaxed focus:outline-none focus:border-orange-500"
+                required
+              />
+            </>
           ) : (
             <div className="prose rounded-lg bg-black/40 border border-white/10 px-5 py-4 min-h-[300px]">
               {content ? <div dangerouslySetInnerHTML={{ __html: html }} /> : <p className="text-zinc-500">Nothing to preview yet.</p>}
