@@ -5,12 +5,13 @@ import { youtubeEmbedUrl } from "@/lib/youtube";
 
 export const revalidate = 0;
 
-export default async function VideoPage({ params }: { params: { id: string } }) {
-  const supabase = createClient();
+export default async function VideoPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const supabase = await createClient();
   const { data: video } = await supabase
     .from("videos")
     .select("id,title,description,youtube_id,created_at,author:profiles!videos_author_id_fkey(username,display_name,avatar_url,bio)")
-    .eq("id", params.id)
+    .eq("id", id)
     .single();
 
   if (!video) notFound();

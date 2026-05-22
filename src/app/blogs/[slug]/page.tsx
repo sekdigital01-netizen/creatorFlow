@@ -5,12 +5,13 @@ import { renderMarkdown } from "@/lib/markdown";
 
 export const revalidate = 0;
 
-export default async function BlogPage({ params }: { params: { slug: string } }) {
-  const supabase = createClient();
+export default async function BlogPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const supabase = await createClient();
   const { data: blog } = await supabase
     .from("blogs")
     .select("slug,title,excerpt,content,cover_url,created_at,author:profiles!blogs_author_id_fkey(username,display_name,bio,avatar_url)")
-    .eq("slug", params.slug)
+    .eq("slug", slug)
     .single();
 
   if (!blog) notFound();

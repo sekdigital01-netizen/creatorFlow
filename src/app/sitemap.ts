@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://streamly.vercel.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // Fetch published videos and blogs for sitemap
   const [{ data: videos }, { data: blogs }] = await Promise.all([

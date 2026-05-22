@@ -11,7 +11,7 @@ type Video = {
   published: boolean;
   approval_status: string;
   created_at: string;
-  author: { username: string } | null;
+  author?: { username: string } | { username: string }[] | null;
 };
 
 type Blog = {
@@ -22,10 +22,12 @@ type Blog = {
   published: boolean;
   approval_status: string;
   created_at: string;
-  author: { username: string } | null;
+  author?: { username: string } | { username: string }[] | null;
 };
 
-type Content = Video | Blog;
+type Content = (Video | Blog) & {
+  author?: any;
+};
 
 export default function ContentModeration() {
   const [contentType, setContentType] = useState<"videos" | "blogs">("videos");

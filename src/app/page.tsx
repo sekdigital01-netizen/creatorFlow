@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const [{ data: videos }, { data: blogs }] = await Promise.all([
     supabase

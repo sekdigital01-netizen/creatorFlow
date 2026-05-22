@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Performance & Build Optimization
-  swcMinify: true,
   compress: true,
   productionBrowserSourceMaps: false,
   

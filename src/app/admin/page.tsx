@@ -5,7 +5,7 @@ import { requireAdmin } from "@/lib/auth";
 
 export default async function AdminDashboard() {
   await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // Get stats
   const [usersRes, videosRes, blogsRes, requestsRes] = await Promise.all([

@@ -1,11 +1,19 @@
-import type { MetadataRoute } from "next";
 import { createClient } from "@/lib/supabase/server";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://streamly.vercel.app";
 const APP_NAME = "Streamly";
 
-export default async function feed(): Promise<MetadataRoute.MetadataBase> {
-  const supabase = createClient();
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+export async function GET() {
+  const supabase = await createClient();
 
   // Fetch recent content
   const [{ data: videos }, { data: blogs }] = await Promise.all([
@@ -74,14 +82,10 @@ export default async function feed(): Promise<MetadataRoute.MetadataBase> {
   </channel>
 </rss>`;
 
-  return xml as any;
-}
-
-function escapeXml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&apos;");
+  return new Response(xml, {
+    headers: {
+      "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+    },
+  });
 }

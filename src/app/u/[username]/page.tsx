@@ -6,12 +6,13 @@ import { BlogCard } from "@/components/BlogCard";
 
 export const revalidate = 0;
 
-export default async function ProfilePage({ params }: { params: { username: string } }) {
+export default async function ProfilePage({ params }: { params: Promise<{ username: string }> }) {
+  const { username } = await params;
   const supabase = createClient();
   const { data: profile } = await supabase
     .from("profiles")
     .select("id,username,display_name,bio,avatar_url,created_at")
-    .eq("username", params.username)
+    .eq("username", username)
     .single();
 
   if (!profile) notFound();

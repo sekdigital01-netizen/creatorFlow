@@ -7,7 +7,7 @@ import {
 
 export async function GET(req: NextRequest) {
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     
     // Check if user is admin
     const {
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Check if user is admin
     const {

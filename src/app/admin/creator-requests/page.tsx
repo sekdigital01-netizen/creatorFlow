@@ -11,14 +11,8 @@ type CreatorRequest = {
   created_at: string;
   reviewed_by: string | null;
   reviewed_at: string | null;
-  user: {
-    username: string;
-    display_name: string | null;
-    avatar_url: string | null;
-  };
-  reviewer: {
-    username: string;
-  } | null;
+  user?: any;
+  reviewer?: any;
 };
 
 export default function CreatorRequests() {
