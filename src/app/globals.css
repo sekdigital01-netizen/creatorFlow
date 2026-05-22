@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optimize rendering performance */
+:root {
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  background: #0a0a0f;
+  color: #e7e7ee;
+}
+
+/* Optimize images */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Smooth transitions and animations */
+* {
+  @apply transition-colors;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus states for accessibility */
+:focus-visible {
+  outline: 2px solid #ff3d6e;
+  outline-offset: 2px;
+}
+
+/* Smooth link underline animations */
+a {
+  position: relative;
+}
+
+/* Rendered markdown (.prose) */
+.prose {
+  color: #d4d4dc;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+  line-height: 1.25;
+}
+
+.prose h1 {
+  font-size: 2.1em;
+}
+
+.prose h2 {
+  font-size: 1.6em;
+}
+
+.prose h3 {
+  font-size: 1.25em;
+}
+
+.prose p {
+  margin: 1em 0;
+}
+
+.prose a {
+  color: #ff8a3d;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.prose a:hover {
+  color: #ffa84d;
+}
+
+.prose strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.prose ul,
+.prose ol {
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose li {
+  margin: 0.35em 0;
+}
+
+.prose blockquote {
+  margin: 1.5em 0;
+  padding: 0.6em 1.1em;
+  border-left: 3px solid #ff3d6e;
+  background: rgba(255, 61, 110, 0.06);
+  color: #c9c9d6;
+  border-radius: 0 8px 8px 0;
+}
+
+.prose code {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.15em 0.4em;
+  border-radius: 5px;
+  font-size: 0.9em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.prose pre {
+  margin: 1.4em 0;
+  padding: 1em 1.2em;
+  background: #0d0d15;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 0.9em;
+}
+
+.prose img {
+  border-radius: 12px;
+  margin: 1.4em 0;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 2em 0;
+}
+
+/* Skeleton loading animation */
+@keyframes skeleton-loading {
+  0% {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+}
+
+.skeleton {
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+  border-radius: 8px;
+}

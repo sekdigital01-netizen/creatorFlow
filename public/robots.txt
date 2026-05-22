@@ -1,0 +1,31 @@
+User-agent: *
+Allow: /
+
+# Disallow admin routes
+Disallow: /admin/
+
+# Disallow auth routes
+Disallow: /login
+Disallow: /signup
+Disallow: /auth/
+
+# Disallow private routes
+Disallow: /profile/
+Disallow: /create/
+Disallow: /creator-request/
+
+# Sitemap
+Sitemap: https://streamly.vercel.app/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
+Request-rate: 1/1s
+
+# Specific crawlers
+User-agent: Googlebot
+Allow: /
+Request-rate: 10/1s
+
+User-agent: Bingbot
+Allow: /
+Request-rate: 5/1s

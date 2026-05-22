@@ -1,0 +1,26 @@
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+
+export default async function BlogNewLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  if (!user) redirect("/login?next=/blogs/new");
+
+  // Check if user has moderator role
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile || (profile.role !== "moderator" && profile.role !== "admin")) {
+    redirect("/");
+  }
+
+  return children;
+}
